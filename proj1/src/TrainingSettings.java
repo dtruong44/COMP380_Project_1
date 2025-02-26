@@ -1,5 +1,5 @@
 public class TrainingSettings {
-    String trainingDataFile;
+    String trainingDataFilePath;
     int weightInitilizationFlag;
     int maxEpochs;
     String trainedWeightsFile;
