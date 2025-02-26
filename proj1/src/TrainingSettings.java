@@ -1,9 +1,9 @@
 public class TrainingSettings {
     String trainingDataFilePath;
-    int weightInitilizationFlag;
+    boolean setWeightsToZero;
     int maxEpochs;
     String trainedWeightsFile;
-    float learningRate;
-    float thetaThreshold;
-    float weightChangeThreshold;
+    double learningRate;
+    double thetaThreshold;
+    double weightChangeThreshold;
 }
