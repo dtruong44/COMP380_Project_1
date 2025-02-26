@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.FileReader;
 import java.io.File;
 
 public class UserIO {
@@ -10,6 +9,7 @@ public class UserIO {
 
     static Scanner scanner = new Scanner(System.in);
     static TrainingSettings netTrainingSettings = new TrainingSettings();
+    static TestingSettings netTestingSettings = new TestingSettings();
 
     public static void getUserIntSelection(){
         int choice;
@@ -24,9 +24,13 @@ public class UserIO {
                 switch(choice){
                 case 1:
                     getTrainingSettings();
+                    String trainingResults = NeuralNet.train(netTrainingSettings);
+                    System.out.println(trainingResults);
                     return;
                 case 2:
                     getTestingSettings();
+                    String testingResults = NeuralNet.test(netTestingSettings);
+                    System.out.println(testingResults);
                     return;
                 case 3:
                     scanner.close();
@@ -43,19 +47,10 @@ public class UserIO {
 
 
     public static void getTrainingSettings(){
+        
         // Get training data file name
-        File file = new File("");
-        String trainingFilePath;
-        System.out.println("\nEnter the training file name: ");
-        do{
-            trainingFilePath = "proj1/" + scanner.nextLine().trim() + ".txt";
-            file = new File(trainingFilePath);
-
-            if(!file.exists()){
-                System.out.println("\nCould not find file, please try again!\n");
-                System.out.println("Enter the training file name: ");
-            }
-        } while(file.exists() == false);
+        String trainingFilePrompt = "\nEnter the training file name: ";
+        String trainingFilePath = getValidFile(trainingFilePrompt);
         netTrainingSettings.trainingDataFilePath = trainingFilePath;
 
         // Get weight initialization selection
@@ -69,7 +64,8 @@ public class UserIO {
         netTrainingSettings.maxEpochs = epochChoice;
 
         // Get file name to save trained weights to
-        String trainedWeightOutputFile = getValidFilename("\nEnter a file name to save the trained weight values:");
+        String trainedWeightOutputPrompt = "\nEnter a file name to save the trained weight values:";
+        String trainedWeightOutputFile = getValidFilename(trainedWeightOutputPrompt);
         netTrainingSettings.trainedWeightsFile = trainedWeightOutputFile;
 
         // Get learning rate (alpha)
@@ -147,7 +143,36 @@ public class UserIO {
     }
 
 
-    public static void getTestingSettings(){
+    private static void getTestingSettings(){
+        // Get trained weights file name
+        String trainedWeightsPrompt = "\nEnter the trained net weight file name:";
+        String trainedWeightFilePath = getValidFile(trainedWeightsPrompt);
+        netTestingSettings.trainedWeightsFilePath = trainedWeightFilePath;
+
+        // Get training data file name
+        String testingFilePrompt = "\nEnter the testing file name: ";
+        String testingFilePath = getValidFile(testingFilePrompt);
+        netTestingSettings.testingDataFilePath = testingFilePath;
         
+        // Get file name to save testing results to
+        String testingResultsPrompt = "\nEnter a file name to save the testing results:";
+        String testingResultsOutputFile = getValidFilename(testingResultsPrompt);
+        netTestingSettings.testingResultsOutputFilePath = testingResultsOutputFile;
+    }
+
+    private static String getValidFile(String prompt){
+        File file = new File("");
+        String filePath;
+        System.out.println(prompt);
+        do{
+            filePath = "proj1/" + scanner.nextLine().trim() + ".txt";
+            file = new File(filePath);
+
+            if(!file.exists()){
+                System.out.println("\nCould not find file, please try again!\n");
+                System.out.println(prompt);
+            }
+        } while(file.exists() == false);
+        return filePath;
     }
 }
