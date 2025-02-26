@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class NeuralNet {
 
     public static void main(String[] args){
-        //FileParser.parseFile();
+        ////FileParser.parseFile();
 
         //initialize weights
         int n = 63;
@@ -52,5 +52,6 @@ public class NeuralNet {
         }
 
         
+        UserIO.welcomeToPerceptron();
     }
 }
