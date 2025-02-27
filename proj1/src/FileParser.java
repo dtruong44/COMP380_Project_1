@@ -52,8 +52,8 @@ public class FileParser {
                 String[] parts = reader.readLine().trim().split("\\s+");
                 int[] outputVector = new int[outputDimensions];
                 int outputVectorIndex = 0;
-                for (i = 0; i < outputDimensions; i++){
-                    outputVector[outputVectorIndex] = Integer.parseInt(parts[i]);
+                for (int k = 0; k < outputDimensions; k++){
+                    outputVector[outputVectorIndex] = Integer.parseInt(parts[k]);
                     outputVectorIndex++;
                 }
                 char label = reader.readLine().charAt(0);
