@@ -12,7 +12,7 @@ public class NeuralNet {
             weights[i] = 0;
         }
     }
-//random
+//random inti
     public static int yInCalculation(int[][] _net, int[] _weightB, int[] _x, int currentPattern) {
         /*
         This method calculates the y in value for the corresponding pattern. 
